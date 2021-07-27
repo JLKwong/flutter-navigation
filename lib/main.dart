@@ -12,6 +12,8 @@ void main() {
         '/': (context) => const FirstScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/second': (context) => const SecondScreen(),
+        // When navigating to the "/second" route, build the ThirdScreen widget.
+        '/third': (context) => const ThirdScreen(),
       },
     ),
   );
@@ -29,11 +31,13 @@ class FirstScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           // Within the `FirstScreen` widget
-          onPressed: () {
-            // Navigate to the second screen using a named route.
-            Navigator.pushNamed(context, '/second');
-          },
-          child: const Text('Launch screen'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SecondScreen()),
+              );
+            },
+            child: const Text('Go to Second'),
         ),
       ),
     );
@@ -53,7 +57,30 @@ class SecondScreen extends StatelessWidget {
         child: ElevatedButton(
           // Within the SecondScreen widget
           onPressed: () {
-            // Navigate back to the first screen by popping the current route
+            // Navigate to the third screen using a named route.
+            Navigator.pushNamed(context, '/third');
+          },
+          child: const Text('Go to Third!'),
+        ),
+      ),
+    );
+  }
+}
+
+class ThirdScreen extends StatelessWidget {
+  const ThirdScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Third Screen'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          // Within the ThirdScreen widget
+          onPressed: () {
+            // Navigate back to the previous screen by popping the current route
             // off the stack.
             Navigator.pop(context);
           },
